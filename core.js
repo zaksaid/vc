@@ -64,4 +64,62 @@ function shuffle(array) {
 }
 
 
+/**
+ * Hold off to the cards, 
+ */
+class Player {
+
+}
+
+class Bot extends Player {
+
+}
+
+/**
+ * Hold the current set of cards at hand. Will keep track of the current rotation type. 
+ * Game loop will process until any of the player has no cards left at hand. 
+ * Or a player throws all four 2s; 6 pairs in seq. 3,3,4,4,5,5,6,6,7,7,8,8; 3 triples in seq. 5,5,5,6,6,6,7,7,7; or dragon all cards in seq.
+ * 3,4,5,6 ... K, A, 2
+ */
+class Stage {
+  contructor(deck, players, moveAnalyzer) {
+    // will take the init. deck and distribute off to the players 
+    // IOC injection of moveAnalyzer
+  }
+
+  start() {
+    // from players with 3spades to start.
+    // determine his move and set the current rotation
+    // call the loop 
+  }
+
+  loop() {
+    // keep asking other players for cards ... player may request for a look at the deck 
+      // if player fails to provide tag him with a skip
+      // but if player provides the cards pass it on to the moveAnalyzer (playersProvidedCards, cardsOnDeck)
+      // moveAnalyzer will response with valid move, winning move, or etc. 
+      // when 
+  }
+}
+
+/**
+ * Will take in the rotation type 
+ */
+class MoveAnalyzer {
+  // will contain set of rules 
+  determineMove(currentSetOfCardsOnDeck, playerWhosMakingMove) {
+
+  }
+}
+
+class Deck {
+  contructor() {
+
+  }
+  // previous set of cards 
+  // current set of cards on the deck
+}
+
+
+
 console.log(shuffle(buildDeck()))
