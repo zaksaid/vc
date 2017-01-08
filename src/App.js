@@ -44,11 +44,14 @@ class App extends Component {
   }
 
   shuffleDeck = () => {
-    const shuffledDeck = shuffle(this.state.deck);
     this.setState({
-      deck: shuffledDeck
+      deck: shuffle(this.state.deck)
     })
   };
+
+  sortHand = (a, b) => {
+    return a - b;
+  }
 
   dealDeck = () => {
     this.shuffleDeck();
@@ -57,7 +60,11 @@ class App extends Component {
     let players = this.state.players;
 
     _.each(players, function(player) {
-      return player.hand = self.state.deck.slice(player.id*13, 13*(player.id+1))
+      let playerHand = self.state.deck.slice(player.id*13, 13*(player.id+1))
+      playerHand = playerHand.sort(function(a, b) {
+        return a.rank - b.rank;
+      });
+      return player.hand = playerHand
     });
 
     this.setState({
@@ -79,8 +86,6 @@ class App extends Component {
     this.setState({
       players: players
     })
-
-
   }
 
   playHand = () => {
@@ -115,8 +120,6 @@ class App extends Component {
     this.setState({
       players: players
     })
-    console.log(this.state)
-
   }
 
   render() {
@@ -136,7 +139,8 @@ class App extends Component {
                     <div key={idx}
                       className={player.selectedCards.has(card) ? "selected card-box" : "card-box"}
                       onClick={() => self.selectCard(player, card)}>
-                      {card.faceValue} {card.suit}
+                      {card.value} {card.suit} <br/>
+                      rank: {card.rank}
                     </div>
                   )
                   })}
@@ -148,7 +152,7 @@ class App extends Component {
             {this.state.stage.map(function (card, idx) {
               return(
                 <div className="card-box" key={idx}>
-                    {card.faceValue} {card.suit}
+                    {card.value} {card.suit}
                 </div>
               )
             })}

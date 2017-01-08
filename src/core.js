@@ -4,11 +4,10 @@ export function buildDeck() {
     var cardSet = [];
     for (let x=0; x<13; x++) {
       cardSet.push({
-        faceValue: faceValue(x),
+        value: faceValue(x),
         suitRank: i+1,
-        suit: suit(i)
-        // TODO
-        // Add overall cardRank based on suit and faceValue
+        suit: suit(i),
+        rank: (x * 4) + i
       })
     }
     deck = deck.concat(cardSet)
