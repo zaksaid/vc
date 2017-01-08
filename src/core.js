@@ -1,8 +1,8 @@
-function buildDeck() {
+export function buildDeck() {
   var deck = [];
-  for(i=0; i<4; i++) {
+  for(let i=0; i<4; i++) {
     var cardSet = [];
-    for (x=0; x<13; x++) {
+    for (let x=0; x<13; x++) {
       cardSet.push({
         faceValue: faceValue(x),
         suitRank: i+1,
@@ -34,17 +34,17 @@ function faceValue(value) {
 
 function suit (rank) {
   var suit = {
-    0: "spade",
-    1: "clubs",
-    2: "diamonds",
-    3: "hearts"
+    0: "\u2660",
+    1: "\u2663",
+    2: "\u2666",
+    3:  "\u2665"
   }
 
   return suit[rank]
 }
 
 // adapted from https://bost.ocks.org/mike/shuffle/
-function shuffle(array) {
+export function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
@@ -62,6 +62,3 @@ function shuffle(array) {
 
   return array;
 }
-
-
-console.log(shuffle(buildDeck()))

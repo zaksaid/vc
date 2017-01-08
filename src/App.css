@@ -1,0 +1,59 @@
+.card-box {
+  width: 75px;
+  height: 50px;
+  border: solid 1px #ccc;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.selected.card-box {
+  border: solid 1px red;
+}
+
+.game-wrapper {
+  position: relative;
+  height: 1050px;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.player-wrapper {
+  position: absolute;
+  height: 100px;
+}
+
+.player-stage {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.player-name {
+  text-align: center;
+}
+
+.player1 {
+  bottom: 0;
+}
+
+.player2 {
+  top: 500px;
+  right: -560px;
+  transform: rotate(90deg);
+
+}
+
+.player3 {}
+
+.player4 {
+  top: 500px;
+  left: -640px;
+  transform: rotate(270deg);
+
+}
+
+.stage {
+  top: 350px;
+  left: 200px;
+  position: absolute;
+}
