@@ -32,6 +32,10 @@
   text-align: center;
 }
 
+.current-player.player-name {
+  color: #f00;
+}
+
 .player1 {
   bottom: 0;
 }

@@ -15,46 +15,46 @@ class App extends Component {
           id: 0,
           hand: null,
           class: "player1",
-          selectedCards: new Set()
+          selectedCards: new Set(),
+          currentPlayer: false
         },
         player2: {
           name: "player2",
           id: 1,
           hand: null,
           class: "player2",
-          selectedCards: new Set()
+          selectedCards: new Set(),
+          currentPlayer: false
         },
         player3: {
           name: "player3",
           id: 2,
           hand: null,
           class: "player3",
-          selectedCards: new Set()
+          selectedCards: new Set(),
+          currentPlayer: false
         },
         player4: {
           name: "player4",
           id: 3,
           hand: null,
           class: "player4",
-          selectedCards: new Set()
+          selectedCards: new Set(),
+          currentPlayer: false
         },
       },
       stage: []
     };
   }
 
-  shuffleDeck = () => {
+  resetBoardPlayers = () => {
     this.setState({
       deck: shuffle(this.state.deck)
     })
   };
 
-  sortHand = (a, b) => {
-    return a - b;
-  }
-
   dealDeck = () => {
-    this.shuffleDeck();
+    this.resetBoardPlayers();
     const self = this;
 
     let players = this.state.players;
@@ -62,18 +62,20 @@ class App extends Component {
     _.each(players, function(player) {
       let playerHand = self.state.deck.slice(player.id*13, 13*(player.id+1))
       playerHand = playerHand.sort(function(a, b) {
+        if (a.rank === 0) {
+          player.currentPlayer = true;
+        }
         return a.rank - b.rank;
       });
-      return player.hand = playerHand
+      player.hand = playerHand;
     });
 
     this.setState({
-      players: players
+      players: players,
     })
   }
 
   selectCard = (currentPlayer, card) => {
-
     let players = this.state.players;
     let updatedPlayer = players[currentPlayer.name];
 
@@ -132,7 +134,9 @@ class App extends Component {
           {_.map(this.state.players, function (player, idx) {
             return (
               <div className={"player-wrapper " + (idx) } key={idx}>
-                <div className="player-name">{player.name}</div>
+                <div className={player.currentPlayer
+                  ? "current-player player-name"
+                  : "player-name"}>{player.name}</div>
                 <div className="player-stage">
                   {player.hand && player.hand.map(function (card, idx) {
                   return (
