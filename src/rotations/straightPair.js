@@ -6,16 +6,18 @@ export default {
     isStraightPair: [
       _.partial(rules.cardsCountGreaterThanEqualTo, 6),
       rules.cardsInEvenQuantity,
-      rules.cardsInPair
+      rules.cardsInPair,
+      rules.cardsPairInSeq
     ],
     rules: [
-      (cards, stage) => {
-          let _cards = Array.from(cards),
-              _stage = Array.from(stage);
+      rules.cardsHigherThanStageCards,
+      // (cards, stage) => {
+      //     let _cards = Array.from(cards),
+      //         _stage = Array.from(stage);
           
-          return _.head(_cards).rank >= _.head(_stage).rank && // atleast the first card should be greater than or equal to the stage's first card
-                  _cards.some(card => _stage.some(scard => card.rank > scard.rank));
-      }
+      //     return _.head(_cards).rank >= _.head(_stage).rank && // atleast the first card should be greater than or equal to the stage's first card
+      //             _cards.some(card => _stage.some(scard => card.rank > scard.rank));
+      // }
     ],
     // If passess any means that it has beaten the cards on stage
     exceptions: [
@@ -27,10 +29,9 @@ export default {
         (cards, stage) => {
           let _stage = Array.from(stage)
 
-          return _.every(_stage, card => card.value === "2")
+          return _.first(_stage).value === "2"
         },
-        _.partialRight(rules.cardsMatchCount, 2 * 3), // pair * number of pairs
-        rules.cardsPairInSeq
+        _.partial(rules.cardsMatchCount, 2 * 3), // pair * number of pairs
       ],
       // A sequence of four pairs (such as 5-5-6-6-7-7-8-8) can beat a pair of twos (but not any other pair)
       [
@@ -42,8 +43,7 @@ export default {
 
           return _.every(_stage, card => card.value === "2")
         },
-        _.partialRight(rules.cardsMatchCount, 2 * 4), // pair * number of pairs
-        rules.cardsPairInSeq
+        _.partial(rules.cardsMatchCount, 2 * 4), // pair * number of pairs
       ],
       // A sequence of five pairs (such as 8-8-9-9-10-10-J-J-Q-Q) can beat a set of three twos
       [
@@ -55,8 +55,7 @@ export default {
 
           return _.every(_stage, card => card.value === "2")
         },
-        _.partialRight(rules.cardsMatchCount, 2 * 5), // pair * number of pairs
-        rules.cardsPairInSeq
+        _.partial(rules.cardsMatchCount, 2 * 5), // pair * number of pairs
       ]
     ]
   }

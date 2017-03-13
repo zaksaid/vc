@@ -33,10 +33,10 @@ function faceValue(value) {
 
 function suit (rank) {
   var suit = {
-    0: "\u2660",
-    1: "\u2663",
-    2: "\u2666",
-    3:  "\u2665"
+    0: "spades",
+    1: "clubs",
+    2: "diamonds",
+    3:  "hearts"
   }
 
   return suit[rank]
