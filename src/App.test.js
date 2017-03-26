@@ -59,7 +59,7 @@ describe("Single rotation", () => {
         let players = [],
             stage = [createCard("9", 1, 24)]
         
-        expect(singleRotation.isSingle.every(ruleExec(players, stage))).toEqual(false);
+        expect(singleRotation.isValid.every(ruleExec(players, stage))).toEqual(false);
         expect(singleRotation.rules.every(ruleExec(players, stage))).toEqual(false);
     })
 
@@ -67,7 +67,7 @@ describe("Single rotation", () => {
         let players = [testify("value", "4")],
             stage = [testify("value", "9")]
         
-        expect(singleRotation.isSingle.every(ruleExec(players, stage))).toEqual(true);
+        expect(singleRotation.isValid.every(ruleExec(players, stage))).toEqual(true);
         expect(singleRotation.rules.every(ruleExec(players, stage))).toEqual(false);
     })
 
@@ -75,7 +75,7 @@ describe("Single rotation", () => {
         let players = [deck.find(testify("value", "2"))],
             stage = [deck.find(testify("value", "5"))]
 
-        expect(singleRotation.isSingle.every(ruleExec(players, stage))).toEqual(true);
+        expect(singleRotation.isValid.every(ruleExec(players, stage))).toEqual(true);
         expect(singleRotation.rules.every(ruleExec(players, stage))).toEqual(true);
     })
 })
@@ -85,7 +85,7 @@ describe("Double rotation", () => {
         let players = [],
             stage = [createCard("9", 1, 24)]
 
-        expect(doubleRotation.isDouble.every(ruleExec(players))).toEqual(false)
+        expect(doubleRotation.isValid.every(ruleExec(players))).toEqual(false)
         expect(doubleRotation.rules.every(ruleExec(players, stage))).toEqual(false)
     })
 
@@ -94,7 +94,7 @@ describe("Double rotation", () => {
             players2 = _.take(deck.filter(x => ["4", "5", "6"]), 1),
             stage = [createCard("9", 1, 24)]
 
-        expect(doubleRotation.isDouble.every(ruleExec(players))).toEqual(false)
+        expect(doubleRotation.isValid.every(ruleExec(players))).toEqual(false)
         //expect(doubleRotation.rules.every(ruleExec(players2, stage))).toEqual(false)
     })
 
@@ -103,7 +103,7 @@ describe("Double rotation", () => {
             players2 = [deck.find(x => x.value === "5"), _.findLast(deck, x => x.value === "Jack")],
             stage = [deck.find(x => x.value === "4"), deck.find(x => x.value === "4")]
 
-        expect(doubleRotation.isDouble.every(ruleExec(players, stage))).toEqual(false)
+        expect(doubleRotation.isValid.every(ruleExec(players, stage))).toEqual(false)
         //expect(doubleRotation.rules.every(ruleExec(players2, stage))).toEqual(false)
     })
 
@@ -114,8 +114,8 @@ describe("Double rotation", () => {
             players2 = [deck.find(testify("value", "7", "suit", "hearts")), deck.find(testify("value", "7", "suit", "clubs"))],
             stage2 = [deck.find(testify("value", "7", "suit", "diamonds")), deck.find(testify("value", "7", "suit", "spades"))]
 
-        expect(doubleRotation.isDouble.every(ruleExec(players1))).toEqual(true)
-        expect(doubleRotation.isDouble.every(ruleExec(players2))).toEqual(true)
+        expect(doubleRotation.isValid.every(ruleExec(players1))).toEqual(true)
+        expect(doubleRotation.isValid.every(ruleExec(players2))).toEqual(true)
 
         expect(doubleRotation.rules.every(ruleExec(players1, stage1))).toEqual(true)
         expect(doubleRotation.rules.every(ruleExec(players2, stage2))).toEqual(true)
@@ -127,7 +127,7 @@ describe("Triple rotation", () => {
         let players = [],
             stage = [createCard("9", 1, 24)]
 
-        expect(tripleRotation.isTriple.every(ruleExec(players, stage))).toEqual(false)
+        expect(tripleRotation.isValid.every(ruleExec(players, stage))).toEqual(false)
     })
 
     it("must not accept any other combination of cards other than a triple", () => {
@@ -135,8 +135,8 @@ describe("Triple rotation", () => {
             players2 = _.take(deck.filter(x => ["4", "5", "6"]), 2),
             stage = [createCard("9", 1, 24)]
 
-        expect(tripleRotation.isTriple.every(ruleExec(players))).toEqual(false)
-        expect(tripleRotation.isTriple.every(ruleExec(players2))).toEqual(false)
+        expect(tripleRotation.isValid.every(ruleExec(players))).toEqual(false)
+        expect(tripleRotation.isValid.every(ruleExec(players2))).toEqual(false)
     })
 
     it("must reject cards of unmatched values", () => {
@@ -144,7 +144,7 @@ describe("Triple rotation", () => {
             players2 = [deck.find(x => x.value === "5"), _.findLast(deck, x => x.value === "Jack"), _.find(deck, x => x.value === "Jack")],
             stage = [deck.find(x => x.value === "4"), deck.find(x => x.value === "4")]
 
-        expect(tripleRotation.isTriple.every(ruleExec(players, stage))).toEqual(false)
+        expect(tripleRotation.isValid.every(ruleExec(players, stage))).toEqual(false)
         //expect(tripleRotation.rules.every(ruleExec(players2, stage))).toEqual(false)
     })
 
@@ -153,7 +153,7 @@ describe("Triple rotation", () => {
             players2 = [deck.find(x => x.value === "Jack"), deck.find(x => x.value === "Jack"), _.findLast(deck, x => x.value === "Jack")],
             stage = [deck.find(x => x.value === "4"), deck.find(x => x.value === "4"), _.findLast(deck, x => x.value === "4")]
 
-        expect(tripleRotation.isTriple.every(ruleExec(players, stage))).toEqual(true)
+        expect(tripleRotation.isValid.every(ruleExec(players, stage))).toEqual(true)
         expect(tripleRotation.rules.every(ruleExec(players2, stage))).toEqual(true)
     })
 })
@@ -163,7 +163,7 @@ describe("FourOfAKind rotation", () => {
         let players = [],
             stage = [createCard("9", 1, 24)]
 
-        expect(fourOfAKindRotation.isFourOfAKind.every(ruleExec(players))).toEqual(false)
+        expect(fourOfAKindRotation.isValid.every(ruleExec(players))).toEqual(false)
     })
 
     it("must not accept any other combination of cards other than a quadrupal", () => {
@@ -171,15 +171,15 @@ describe("FourOfAKind rotation", () => {
             players2 = _.take(deck.filter(x => ["4", "5", "6"]), 2),
             stage = [createCard("9", 1, 24)]
 
-        expect(fourOfAKindRotation.isFourOfAKind.every(ruleExec(players))).toEqual(false)
+        expect(fourOfAKindRotation.isValid.every(ruleExec(players))).toEqual(false)
     })
 
     it("must reject cards of unmatched values", () => {
         let players = [deck.find(x => x.value === "6"), _.findLast(deck, x => x.value === "7"), _.find(deck, x => x.value === "7"), _.findLast(deck, x => x.value === "7")],
             players2 = [deck.find(x => x.value === "5"), _.findLast(deck, x => x.value === "Jack"), _.find(deck, x => x.value === "King"), _.findLast(deck, x => x.value === "Jack")]
 
-        expect(fourOfAKindRotation.isFourOfAKind.every(ruleExec(players))).toEqual(false)
-        expect(fourOfAKindRotation.isFourOfAKind.every(ruleExec(players2))).toEqual(false)
+        expect(fourOfAKindRotation.isValid.every(ruleExec(players))).toEqual(false)
+        expect(fourOfAKindRotation.isValid.every(ruleExec(players2))).toEqual(false)
     })
 
     it("must accept four cards of matching values whose ranks are higher than the four cards on stage", () => {
@@ -187,7 +187,7 @@ describe("FourOfAKind rotation", () => {
             players2 = [deck.find(x => x.value === "Jack"), deck.find(x => x.value === "Jack"), _.findLast(deck, x => x.value === "Jack"), _.findLast(deck, x => x.value === "Jack")],
             stage = [deck.find(x => x.value === "4"), deck.find(x => x.value === "4"), _.findLast(deck, x => x.value === "4"), _.findLast(deck, x => x.value === "4")]
 
-        expect(fourOfAKindRotation.isFourOfAKind.every(ruleExec(players, stage))).toEqual(true)
+        expect(fourOfAKindRotation.isValid.every(ruleExec(players, stage))).toEqual(true)
         expect(fourOfAKindRotation.rules.every(ruleExec(players2, stage))).toEqual(true)
     })
 
@@ -197,7 +197,7 @@ describe("FourOfAKind rotation", () => {
                 stage = [deck.find(x => x.value === "2")],
                 stage1 = [deck.find(x => x.value !== "2")]
 
-            expect(fourOfAKindRotation.isFourOfAKind.every(ruleExec(players))).toEqual(true)
+            expect(fourOfAKindRotation.isValid.every(ruleExec(players))).toEqual(true)
             expect(fourOfAKindRotation.rules.every(ruleExec(players, stage))).toEqual(false)
 
             expect(fourOfAKindRotation.exceptions.some(exception => exception.every(ruleExec(players, stage)))).toEqual(true)
@@ -210,7 +210,7 @@ describe("Straight Rotation", () => {
     it("must reject empty set of cards", () => {
         let players = []
 
-        expect(straightRotation.isStriaght.every(ruleExec(players))).toEqual(false)
+        expect(straightRotation.isValid.every(ruleExec(players))).toEqual(false)
     })
 
     it("must only accept 3 or more set of cards in sequence", () => {
@@ -221,12 +221,12 @@ describe("Straight Rotation", () => {
             failedPlayers1 = [deck.find(x => x.value === "4"), deck.find(x => x.value === "4"), deck.find(x => x.value === "5")],
             failedPlayers2 = [deck.find(x => x.value === "Jack"), deck.find(x => x.value === "Queen"), deck.find(x => x.value === "King"), deck.find(x => x.value === "3")]
 
-        expect(straightRotation.isStriaght.every(ruleExec(players))).toEqual(true)
-        expect(straightRotation.isStriaght.every(ruleExec(players1))).toEqual(true)
+        expect(straightRotation.isValid.every(ruleExec(players))).toEqual(true)
+        expect(straightRotation.isValid.every(ruleExec(players1))).toEqual(true)
 
-        expect(straightRotation.isStriaght.every(ruleExec(failedPlayers))).toEqual(false)
-        expect(straightRotation.isStriaght.every(ruleExec(failedPlayers1))).toEqual(false)
-        expect(straightRotation.isStriaght.every(ruleExec(failedPlayers2))).toEqual(false)
+        expect(straightRotation.isValid.every(ruleExec(failedPlayers))).toEqual(false)
+        expect(straightRotation.isValid.every(ruleExec(failedPlayers1))).toEqual(false)
+        expect(straightRotation.isValid.every(ruleExec(failedPlayers2))).toEqual(false)
     })
 
     it("must beat another stage cards with sequence starting with greater or same value but having a higher rank", () => {
@@ -247,8 +247,8 @@ describe("Straight Pair Rotation", () => {
             players1 = [deck.find(testify("value", "4", "suit", "hearts")), deck.find(testify("value", "4", "suit", "spades")),
                         deck.find(testify("value", "5", "suit", "diamonds")), deck.find(testify("value", "5", "suit", "clubs"))]
 
-        expect(straightPairRotation.isStraightPair.every(ruleExec(players))).toEqual(false)
-        expect(straightPairRotation.isStraightPair.every(ruleExec(players1))).toEqual(false)
+        expect(straightPairRotation.isValid.every(ruleExec(players))).toEqual(false)
+        expect(straightPairRotation.isValid.every(ruleExec(players1))).toEqual(false)
     })
 
     it("must absolutely reject unpaired and not in sequence sets of cards", () => {
@@ -270,9 +270,9 @@ describe("Straight Pair Rotation", () => {
                 deck.find(testify("value", "King", "suit", "spades")), deck.find(testify("value", "King", "suit", "hearts"))
             ]
 
-        expect(straightPairRotation.isStraightPair.every(ruleExec(players1))).toEqual(false)
-        expect(straightPairRotation.isStraightPair.every(ruleExec(players2))).toEqual(false)
-        expect(straightPairRotation.isStraightPair.every(ruleExec(players3))).toEqual(false)
+        expect(straightPairRotation.isValid.every(ruleExec(players1))).toEqual(false)
+        expect(straightPairRotation.isValid.every(ruleExec(players2))).toEqual(false)
+        expect(straightPairRotation.isValid.every(ruleExec(players3))).toEqual(false)
     })
 
     it("must accept 3 or more pairs of consecutive rank", () => {
@@ -289,8 +289,8 @@ describe("Straight Pair Rotation", () => {
                 deck.find(testify("value", "King", "suit", "spades")), deck.find(testify("value", "King", "suit", "hearts"))
             ]
 
-        expect(straightPairRotation.isStraightPair.every(ruleExec(players1))).toEqual(true)
-        expect(straightPairRotation.isStraightPair.every(ruleExec(players2))).toEqual(true)
+        expect(straightPairRotation.isValid.every(ruleExec(players1))).toEqual(true)
+        expect(straightPairRotation.isValid.every(ruleExec(players2))).toEqual(true)
     })
 
     describe("Exceptions", () => {
@@ -302,7 +302,7 @@ describe("Straight Pair Rotation", () => {
                 ],
                 stage1 = [deck.find(testify("value", "2"))]
             
-            expect(straightPairRotation.isStraightPair.every(ruleExec(players1))).toEqual(true)
+            expect(straightPairRotation.isValid.every(ruleExec(players1))).toEqual(true)
             expect(straightPairRotation.rules.every(ruleExec(players1, stage1))).toEqual(false)
             expect(straightPairRotation.exceptions.some(exception => exception.every(ruleExec(players1, stage1)))).toEqual(true)
         })
@@ -316,7 +316,7 @@ describe("Straight Pair Rotation", () => {
                 ],
                 stage1 = [deck.find(testify("value", "2", "suit", "hearts")), deck.find(testify("value", "2", "suit", "diamonds"))]
             
-            expect(straightPairRotation.isStraightPair.every(ruleExec(players1))).toEqual(true)
+            expect(straightPairRotation.isValid.every(ruleExec(players1))).toEqual(true)
             expect(straightPairRotation.rules.every(ruleExec(players1, stage1))).toEqual(false)
             expect(straightPairRotation.exceptions.some(exception => exception.every(ruleExec(players1, stage1)))).toEqual(true)
         })
@@ -339,7 +339,7 @@ describe("Straight Pair Rotation", () => {
                     deck.find(testify("value", "2", "suit", "hearts"))
                 ]
             
-            expect(straightPairRotation.isStraightPair.every(ruleExec(players1))).toEqual(true)
+            expect(straightPairRotation.isValid.every(ruleExec(players1))).toEqual(true)
             expect(straightPairRotation.rules.every(ruleExec(players1, stage1))).toEqual(false)
             
             expect(straightPairRotation.exceptions.some(exception => exception.every(ruleExec(players1, stage1)))).toEqual(true)

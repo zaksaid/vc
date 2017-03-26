@@ -3,7 +3,7 @@ import _ from "lodash"
 
 export default {
     description: "You must play four cards of a matching value whose ranks are higher than the four cards on the stage",
-    isFourOfAKind: [
+    isValid: [
       _.partial(rules.cardsMatchCount, 4),
       rules.cardsValueMatchEachOther
     ],

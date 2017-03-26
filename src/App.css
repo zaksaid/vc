@@ -1,25 +1,51 @@
-.card-box {
+.card {
+  background: white;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 3px, rgba(0, 0, 0, 0.239216) 0px 1px 2px;
+  box-sizing: border-box;
+  color: rgb(33, 33, 33);
+  font-family: Helvetica;
+  padding: 4px;
+  position: relative;
   width: 75px;
-  height: 50px;
-  border: solid 1px #ccc;
-  margin-right: 10px;
-  cursor: pointer;
+  height: 100px;
+  margin-right: 2px;
+  transition: all 250ms;
 }
 
-.selected.card-box {
+.card.disabled {
+  pointer-events: none;
+  background: lightgray;
+}
+
+.player-stage .card:hover, .player-stage .card.selected {
+  transform: translateY(-10px);
+  cursor: -webkit-grab;
+}
+
+.player-stage .selected.card {
   border: solid 1px red;
+}
+
+.shell {
+  width: 1024px;
 }
 
 .game-wrapper {
   position: relative;
-  height: 1050px;
-  width: 1200px;
+  height: 960px;
+  width: 100%;
   margin: 0 auto;
+  margin-left: 40%;
+  float: left;
+  background: lightgreen;
 }
 
 .player-wrapper {
   position: absolute;
   height: 100px;
+  text-align: center;
+  width: 100%;
 }
 
 .player-stage {
@@ -37,27 +63,28 @@
 }
 
 .player1 {
-  bottom: 0;
+  bottom: -43px;
 }
 
 .player2 {
-  top: 500px;
-  right: -560px;
+  top: 470px;
+  right: -550px;
   transform: rotate(90deg);
-
 }
 
 .player3 {}
 
 .player4 {
-  top: 500px;
-  left: -640px;
+  top: 470px;
+  left: -575px;
   transform: rotate(270deg);
-
 }
 
 .stage {
-  top: 350px;
-  left: 200px;
-  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 }

@@ -7,6 +7,7 @@ export function buildDeck() {
         value: faceValue(x),
         suitRank: i+1,
         suit: suit(i),
+        suitCode: suitCode(suit(i)),
         rank: (x * 4) + i
       })
     }
@@ -40,6 +41,17 @@ function suit (rank) {
   }
 
   return suit[rank]
+}
+
+function suitCode(suit) {
+  let unicodes = {
+    "spades": "♠",
+    "hearts": "♥",
+    "diamonds": "♦",
+    "clubs": "♣"
+  }
+
+  return unicodes[suit]
 }
 
 // adapted from https://bost.ocks.org/mike/shuffle/
