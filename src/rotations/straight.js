@@ -3,7 +3,7 @@ import _ from "lodash"
 
 export default {
     description: "You must play \"N\" cards with an increasing value of which the last card has a higher rank than the last card on the stage",
-    isStriaght: [
+    isValid: [
         _.partial(rules.cardsCountGreaterThanEqualTo, 3),
         rules.cardsInSequence
     ],

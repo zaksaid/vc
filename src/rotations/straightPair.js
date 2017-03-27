@@ -3,7 +3,7 @@ import _ from "lodash"
 
 export default {
     description: "Three or more pairs of consecutive rank - such as 3-3-4-4-5-5 or 6-6-7-7-8-8-9-9",
-    isStraightPair: [
+    isValid: [
       _.partial(rules.cardsCountGreaterThanEqualTo, 6),
       rules.cardsInEvenQuantity,
       rules.cardsInPair,
